@@ -87,7 +87,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
                     <SelectField
                         label="City"
                         value={city}
-                        options={cityOptions}
+                        options={cityOptions.map(city => ({ value: city, label: city }))}
                         onChange={(value) => setCity(value)}
                         isValid={city.length > 0}
                         errorMessages={[]}
@@ -130,7 +130,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
                     <SelectField
                         label="Bank Name"
                         value={bankName}
-                        options={bankOptions}
+                        options={bankOptions.map(bank => ({ value: bank, label: bank }))}
                         onChange={(value) => setBankName(value)}
                         isValid={bankName.length > 0}
                         errorMessages={[]}

@@ -62,7 +62,8 @@ const Login: React.FC = () => {
     return (
         <div className="flex justify-center items-center min-h-screen bg-purple-600 p-4 sm:p-0">
             <div className="w-full max-w-4xl bg-white p-0 rounded shadow-lg flex">
-                <div className="hidden md:flex w-1/2 bg-cover bg-center rounded-l" style={{ backgroundImage: `url(${designImage})` }}>
+                <div className="hidden md:flex w-1/2 bg-cover bg-center rounded-l"
+                     style={{backgroundImage: `url(${designImage})`}}>
                     {/* Vous pouvez ajouter plus de contenu ici si nécessaire */}
                 </div>
                 <div className="w-full md:w-1/2 p-8">
@@ -100,7 +101,7 @@ const Login: React.FC = () => {
                             Sign In
                         </Button>
                         <div className="text-center mt-3">
-                            <Link to="/forgot-password" className="text-purple-600">Forgot your password?</Link>
+                            <a href="#" className="text-purple-600">Forgot your password?</a>
                         </div>
                         <div className="text-center mt-3">
                             <span>Not a member? </span>

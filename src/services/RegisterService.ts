@@ -1,10 +1,44 @@
 import { User } from '../models/User';
+import APIClient from "./APIClient";
 
 class RegisterService {
-    register(user: User): Promise<void> {
-        // Remplacez cette partie par votre logique de traitement d'inscription
+    register(client: any): Promise<void> {
         return new Promise((resolve, reject) => {
-            resolve();
+            APIClient.post('/api/auth/register', client)
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(error => {
+                    if (error.response) {
+                        reject(error.response.data);
+                    } else {
+                        console.log(error.message);
+                        reject('Problem in server');
+                    }
+                });
+        });
+    }
+
+    verifyEmail(email: string): Promise<void> {
+        return new Promise((resolve, reject) => {
+            APIClient.post('/api/auth/verifyEmail', null, {
+                params: { email }
+            })
+                .then(response => {
+                    if (response.data === true) {
+                        resolve();
+                    } else {
+                        reject('Email is already used');
+                    }
+                })
+                .catch(error => {
+                    if (error.response && error.response.status === 400) {
+                        reject(error.response.data);
+                    } else {
+                        console.log(error.message);
+                        reject('Problem in server');
+                    }
+                });
         });
     }
 }

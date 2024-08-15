@@ -4,11 +4,11 @@ import { Form } from 'react-bootstrap';
 interface SelectFieldProps {
     label: string;
     value: string;
-    options: string[];
+    options: { value: string, label: string }[];
     onChange: (value: string) => void;
-    placeholder?: string;
     isValid: boolean;
     errorMessages: string[];
+    placeholder: string;
 }
 
 const SelectField: React.FC<SelectFieldProps> = ({
@@ -16,9 +16,9 @@ const SelectField: React.FC<SelectFieldProps> = ({
                                                      value,
                                                      options,
                                                      onChange,
-                                                     placeholder,
                                                      isValid,
                                                      errorMessages,
+                                                     placeholder,
                                                  }) => {
     return (
         <Form.Group className="mb-3">
@@ -27,13 +27,13 @@ const SelectField: React.FC<SelectFieldProps> = ({
                 as="select"
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                className={`p-2 w-full border rounded ${value.length === 0 ? 'border-black' : isValid ? 'border-green-500' : 'border-red-500'}`}
+                className={`p-2 w-full border rounded ${
+                    value.length === 0 ? 'border-black' : isValid ? 'border-green-500' : 'border-red-500'
+                }`}
             >
-                <option value="">{placeholder}</option>
+                <option value="" disabled>{placeholder}</option>
                 {options.map((option, index) => (
-                    <option key={index} value={option}>
-                        {option}
-                    </option>
+                    <option key={index} value={option.value}>{option.label}</option>
                 ))}
             </Form.Control>
             {!isValid && value.length > 0 && errorMessages.map((msg, index) => (

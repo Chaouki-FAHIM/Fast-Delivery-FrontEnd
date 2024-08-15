@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Alert } from 'react-bootstrap'; // Assurez-vous d'importer Alert
 import AccountForm from '../components/AccountForm';
 import StepIndicator from '../components/StepIndicator';
 import ProfileForm from '../components/ProfileForm';
 import OtpVerificationForm from '../components/OtpVerificationForm';
-import RegisterService from '../services/RegisterService';
+import RegisterService from '../services/RegisterService'; // Assurez-vous d'importer RegisterService
 import OtpService from '../services/OtpService';
+import CityService from '../services/CityService';
+import BankService from '../services/BankService';
 import { validateLoginEmail, validateLoginPassword, validatePhoneNumber, validateRib, validateCin } from '../utils/validators';
 import { Link, useNavigate } from 'react-router-dom';
 import designImage from '../assets/flyer_delivery.jpg';
@@ -45,9 +47,14 @@ const Register: React.FC = () => {
     const [otpErrors, setOtpErrors] = useState<string[]>([]);
 
     const [errorMessage, setErrorMessage] = useState('');
+    const [showError, setShowError] = useState(false);
+    const [cityOptions, setCityOptions] = useState<string[]>([]);
+    const [bankOptions, setBankOptions] = useState<string[]>([]);
 
-    const cityOptions = ['Casablanca', 'Rabat', 'Marrakech', 'Fes', 'Tangier'];
-    const bankOptions = ['Bank A', 'Bank B', 'Bank C', 'Bank D'];
+    useEffect(() => {
+        CityService.getCities().then(setCityOptions).catch(console.error);
+        BankService.getBanks().then(setBankOptions).catch(console.error);
+    }, []);
 
     useEffect(() => {
         const emailErrorsTemp: string[] = [];
@@ -165,9 +172,15 @@ const Register: React.FC = () => {
         } else if (currentStep === 2 && emailValid && passwordValid && confirmPasswordValid) {
             try {
                 await OtpService.sendOtp(email);
+                toast.success('OTP sent to your email');
                 setCurrentStep(3);
             } catch (error) {
                 setErrorMessage(error as string);
+                setShowError(true);
+                setTimeout(() => {
+                    setShowError(false);
+                    setErrorMessage('');
+                }, 3000);
             }
         }
     };
@@ -230,6 +243,8 @@ const Register: React.FC = () => {
                                     setEmail={setEmail}
                                     setPassword={setPassword}
                                     setConfirmPassword={setConfirmPassword}
+                                    setEmailValid={setEmailValid}
+                                    setEmailErrors={setEmailErrors}
                                     emailValid={emailValid}
                                     emailErrors={emailErrors}
                                     passwordValid={passwordValid}
@@ -258,12 +273,29 @@ const Register: React.FC = () => {
                                     otpValid={otpValid}
                                     otpErrors={otpErrors}
                                     handleOtpKeyPress={handleOtpKeyPress}
+                                    email={email}
+                                    clientData={{
+                                        email,
+                                        password,
+                                        firstName,
+                                        lastName,
+                                        city,
+                                        phoneNumber,
+                                        cin,
+                                        bankName,
+                                        rib,
+                                    }}
                                 />
+                                {showError && errorMessage && (
+                                    <Alert variant="danger" className="text-center mb-3">
+                                        {errorMessage}
+                                    </Alert>
+                                )}
                                 <div className="d-flex justify-content-between mt-4">
                                     <Button variant="secondary" onClick={handlePreviousStep}>
                                         Back
                                     </Button>
-                                    <Button variant="primary" type="submit" disabled={!otpValid}>
+                                    <Button variant="primary" onClick={handleNextStep} disabled={!otpValid}>
                                         Verify OTP
                                     </Button>
                                 </div>

@@ -1,13 +1,23 @@
 import { Login } from '../models/Login';
+import APIClient from './APIClient';
 
 class LoginService {
     login(login: Login): Promise<void> {
         return new Promise((resolve, reject) => {
-            if (login.email === 'test@example.com' && login.password === 'password123') {
-                resolve();
-            } else {
-                reject('Invalid email or password');
-            }
+            APIClient.get('/api/auth/login', {
+                params: login
+            })
+                .then(response => {
+                    resolve();
+                })
+                .catch(error => {
+                    if (error.response && error.response.status === 401) {
+                        reject(error.response.data);
+                    } else {
+                        console.log(error.message);
+                        reject('Problem in server');
+                    }
+                });
         });
     }
 }
