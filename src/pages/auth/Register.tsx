@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap'; // Assurez-vous d'importer Alert
-import AccountForm from '../components/AccountForm';
-import StepIndicator from '../components/StepIndicator';
-import ProfileForm from '../components/ProfileForm';
-import OtpVerificationForm from '../components/OtpVerificationForm';
-import RegisterService from '../services/RegisterService'; // Assurez-vous d'importer RegisterService
-import OtpService from '../services/OtpService';
-import CityService from '../services/CityService';
-import BankService from '../services/BankService';
-import { validateLoginEmail, validateLoginPassword, validatePhoneNumber, validateRib, validateCin } from '../utils/validators';
+import AccountForm from '../../components/form/AccountForm';
+import StepIndicator from '../../components/StepIndicator';
+import ProfileForm from '../../components/form/ProfileForm';
+import OtpVerificationForm from '../../components/form/OtpVerificationForm';
+import RegisterService from '../../services/RegisterService'; // Assurez-vous d'importer RegisterService
+import OtpService from '../../services/OtpService';
+import CityService from '../../services/CityService';
+import BankService from '../../services/BankService';
+import { validateLoginEmail, validateLoginPassword, validatePhoneNumber, validateRib, validateCin } from '../../utils/validators';
 import { Link, useNavigate } from 'react-router-dom';
-import designImage from '../assets/flyer_delivery.jpg';
+import designImage from '../../assets/flyer_delivery.jpg';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

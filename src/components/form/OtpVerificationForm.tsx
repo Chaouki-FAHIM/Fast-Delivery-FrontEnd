@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
-import APIClient from "../services/APIClient";
-import RegisterService from "../services/RegisterService";
+import APIClient from "../../services/APIClient";
+import RegisterService from "../../services/RegisterService";
 
 interface OtpVerificationFormProps {
     otp: string;

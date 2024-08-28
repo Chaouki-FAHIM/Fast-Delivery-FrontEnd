@@ -2,6 +2,7 @@
 import APIClient from './APIClient';
 
 class BankService {
+
     getBanks(): Promise<string[]> {
         return APIClient.get('/api/data/banques')
             .then(response => {

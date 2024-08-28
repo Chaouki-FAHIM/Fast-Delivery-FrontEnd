@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
-import FormField from './FormField';
-import SelectField from './SelectField';
+import FormField from '../field/FormField';
+import SelectField from '../field/SelectField';
 
 interface ProfileFormProps {
     firstName: string;

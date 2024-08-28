@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Row, Col, Form, Spinner } from 'react-bootstrap';
-import FormField from './FormField';
-import RegisterService from '../services/RegisterService';
+import FormField from '../field/FormField';
+import RegisterService from '../../services/RegisterService';
 
 interface AccountFormProps {
     email: string;

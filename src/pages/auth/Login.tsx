@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
-import FormField from '../components/FormField';
-import LoginService from '../services/LoginService';
-import { validateLoginEmail, validateLoginPassword } from '../utils/validators';
+import FormField from '../../components/field/FormField';
+import LoginService from '../../services/LoginService';
+import { validateLoginEmail, validateLoginPassword } from '../../utils/validators';
 import { Link, useNavigate } from 'react-router-dom';
-import designImage from '../assets/buy_delivery.jpg';
+import designImage from '../../assets/buy_delivery.jpg';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

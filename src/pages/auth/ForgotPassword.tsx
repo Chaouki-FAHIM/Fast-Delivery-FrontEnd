@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import OtpVerificationForm from '../components/OtpVerificationForm';
-import APIClient from "../services/APIClient";
-import RegisterService from "../services/RegisterService";
+import OtpVerificationForm from '../../components/form/OtpVerificationForm';
+import APIClient from "../../services/APIClient";
+import RegisterService from "../../services/RegisterService";
 
 interface ClientData {
     email: string;
